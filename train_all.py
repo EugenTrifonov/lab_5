@@ -78,6 +78,16 @@ def exp_decay(epoch):
    lrate = initial_lrate * exp(-k*epoch)
    return lrate
 lrate = LearningRateScheduler(exp_decay)
+def unfreeze_model(model):
+    # We unfreeze the top 20 layers while leaving BatchNorm layers frozen
+    for layer in model.layers[-20:]:
+        if not isinstance(layer, layers.BatchNormalization):
+            layer.trainable = True
+
+    optimizer = tf.keras.optimizers.Adam(learning_rate=1e-4)
+    model.compile(
+        optimizer=optimizer, loss="categorical_crossentropy", metrics=["accuracy"]
+    )
 
 def main():
   args = argparse.ArgumentParser()
@@ -99,13 +109,25 @@ def main():
   log_dir='{}/owl-{}'.format(LOG_DIR, time.time())
   model.fit(
     train_dataset,
-    epochs=50,
+    epochs=30,
     validation_data=validation_dataset,
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),lrate
     ]
   )
-
+  unfreeze_model(model)
+  model.compile(
+    optimizer=tf.optimizers.Adam(),
+    loss=tf.keras.losses.categorical_crossentropy,
+    metrics=[tf.keras.metrics.categorical_accuracy],
+  )
+  model.fit(
+    train_dataset,
+    epochs=10,
+    validation_data=validation_dataset,
+    callbacks=[
+      tf.keras.callbacks.TensorBoard(log_dir),lrate
+    ]
 
 if __name__ == '__main__':
     main()
