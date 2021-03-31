@@ -128,6 +128,5 @@ def main():
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),lrate
     ]
-
 if __name__ == '__main__':
-    main()
+  main()
