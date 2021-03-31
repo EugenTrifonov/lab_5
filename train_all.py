@@ -87,7 +87,7 @@ lrate_new = LearningRateScheduler(exp_decay_new)
 def unfreeze_model(model):
     # We unfreeze the top 20 layers while leaving BatchNorm layers frozen
     for layer in model.layers[-20:]:
-        if not isinstance(tf.keras.layer, tf.keras.layers.BatchNormalization):
+        if not isinstance(tf.keras.layers, tf.keras.layers.BatchNormalization):
             layer.trainable = True
 
   
@@ -111,7 +111,7 @@ def main():
   log_dir='{}/owl-{}'.format(LOG_DIR, time.time())
   model.fit(
     train_dataset,
-    epochs=15,
+    epochs=7,
     validation_data=validation_dataset,
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),lrate
