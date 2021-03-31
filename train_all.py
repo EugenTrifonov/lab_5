@@ -115,5 +115,23 @@ def main():
       tf.keras.callbacks.TensorBoard(log_dir),lrate
     ]
   )
+  unfreeze_model(model)
+  model.compile(
+    optimizer=tf.optimizers.Adam(),
+    loss=tf.keras.losses.categorical_crossentropy,
+    metrics=[tf.keras.metrics.categorical_accuracy],
+  )
+  model.fit(
+    train_dataset,
+    epochs=10,
+    validation_data=validation_dataset,
+    callbacks=[
+      tf.keras.callbacks.TensorBoard(log_dir),lrate
+    ]
+  )
+  
+  
+  
+  
 if __name__ == '__main__':
   main()
