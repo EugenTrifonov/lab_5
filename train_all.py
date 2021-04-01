@@ -79,7 +79,7 @@ def exp_decay(epoch):
    return lrate
 lrate = LearningRateScheduler(exp_decay)
 def exp_decay_new(epoch):
-   initial_lrate = 0.0001
+   initial_lrate = 0.00001
    k = 0.5
    lrate = initial_lrate * exp(-k*epoch)
    return lrate
