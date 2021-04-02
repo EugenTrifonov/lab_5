@@ -78,12 +78,12 @@ def exp_decay(epoch):
    lrate = initial_lrate * exp(-k*epoch)
    return lrate
 lrate = LearningRateScheduler(exp_decay)
-def exp_decay_new(epoch):
-   initial_lrate = 0.0001
-   k = 0.8
-   lrate = initial_lrate * exp(-k*epoch)
-   return lrate
-lrate_new = LearningRateScheduler(exp_decay_new)
+#def exp_decay_new(epoch):
+#   initial_lrate = 0.0001
+#   k = 0.8
+#   lrate = initial_lrate * exp(-k*epoch)
+#   return lrate
+#lrate_new = LearningRateScheduler(exp_decay_new)
 def unfreeze_model(model):
     # We unfreeze the top 20 layers while leaving BatchNorm layers frozen
     for layer in model.layers:
@@ -125,7 +125,7 @@ def main():
   )
   model.fit(
     train_dataset,
-    epochs=15,
+    epochs=10,
     validation_data=validation_dataset,
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),
