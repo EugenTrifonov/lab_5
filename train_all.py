@@ -80,7 +80,7 @@ def exp_decay(epoch):
 lrate = LearningRateScheduler(exp_decay)
 def exp_decay_new(epoch):
    initial_lrate = 0.00001
-   k = 0.5
+   k = 0.9
    lrate = initial_lrate * exp(-k*epoch)
    return lrate
 lrate_new = LearningRateScheduler(exp_decay_new)
@@ -119,7 +119,7 @@ def main():
   )
   unfreeze_model(model)
   model.compile(
-    optimizer=tf.optimizers.Adam(0.0000001),
+    optimizer=tf.optimizers.Adam(0.000001),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
