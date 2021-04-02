@@ -128,7 +128,7 @@ def main():
     epochs=10,
     validation_data=validation_dataset,
     callbacks=[
-      tf.keras.callbacks.TensorBoard(log_dir),exp_decay_new
+      tf.keras.callbacks.TensorBoard(log_dir),lrate_new
     ]
   )
   
