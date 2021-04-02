@@ -73,7 +73,7 @@ def build_model():
   outputs = tf.keras.layers.Dense(NUM_CLASSES,activation=tf.keras.activations.softmax)(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 def exp_decay(epoch):
-   initial_lrate = 0.01
+   initial_lrate = 0.1
    k = 0.5
    lrate = initial_lrate * exp(-k*epoch)
    return lrate
@@ -119,7 +119,7 @@ def main():
   )
   unfreeze_model(model)
   model.compile(
-    optimizer=tf.optimizers.Adam(),
+    optimizer=tf.optimizers.Adam(0.000001),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
@@ -128,7 +128,7 @@ def main():
     epochs=10,
     validation_data=validation_dataset,
     callbacks=[
-      tf.keras.callbacks.TensorBoard(log_dir),lrate_new
+      tf.keras.callbacks.TensorBoard(log_dir)
     ]
   )
   
