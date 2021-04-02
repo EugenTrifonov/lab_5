@@ -73,7 +73,7 @@ def build_model():
   outputs = tf.keras.layers.Dense(NUM_CLASSES,activation=tf.keras.activations.softmax)(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 def exp_decay(epoch):
-   initial_lrate = 0.1
+   initial_lrate = 0.01
    k = 0.5
    lrate = initial_lrate * exp(-k*epoch)
    return lrate
@@ -87,7 +87,7 @@ lrate_new = LearningRateScheduler(exp_decay_new)
 def unfreeze_model(model):
     # We unfreeze the top 20 layers while leaving BatchNorm layers frozen
     for layer in model.layers:
-        if not isinstance(tf.keras.layers, tf.keras.layers.BatchNormalization):
+        if not isinstance(layer, tf.keras.layers.BatchNormalization):
             layer.trainable = True
 
   
@@ -119,7 +119,7 @@ def main():
   )
   unfreeze_model(model)
   model.compile(
-    optimizer=tf.optimizers.Adam(0.000001),
+    optimizer=tf.optimizers.Adam(0.0000001),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
