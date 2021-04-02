@@ -111,7 +111,7 @@ def main():
   log_dir='{}/owl-{}'.format(LOG_DIR, time.time())
   model.fit(
     train_dataset,
-    epochs=20,
+    epochs=10,
     validation_data=validation_dataset,
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),lrate
@@ -119,16 +119,16 @@ def main():
   )
   unfreeze_model(model)
   model.compile(
-    optimizer=tf.optimizers.Adam(),
+    optimizer=tf.optimizers.Adam(0.0000001),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
   model.fit(
     train_dataset,
-    epochs=10,
+    epochs=15,
     validation_data=validation_dataset,
     callbacks=[
-      tf.keras.callbacks.TensorBoard(log_dir),lrate_new
+      tf.keras.callbacks.TensorBoard(log_dir),
     ]
   )
   
