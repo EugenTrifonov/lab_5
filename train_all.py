@@ -89,7 +89,7 @@ def unfreeze_model(model):
     for layer in model.layers:
         if not isinstance(layer, tf.keras.layers.BatchNormalization):
             layer.trainable = True
-            print('unfreezed')
+            
 
   
 def main():
