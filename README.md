@@ -10,7 +10,16 @@ new_input=tf.keras.layers.experimental.preprocessing.RandomRotation(0.05,fill_mo
 new_input=tf.keras.layers.GaussianNoise(0.1)(new_input)
 ```
 ## Transfer learning
-Во всех случаях была экспоненциальная политика изменения темпа обучения с параметрами
+Во всех случаях была экспоненциальная политика изменения темпа обучения с параметрами k=0.5 и initial_lrate=0.01
+
+```python
+def exp_decay(epoch):
+   initial_lrate = 0.01
+   k = 0.5
+   lrate = initial_lrate * exp(-k*epoch)
+   return lrate
+lrate = LearningRateScheduler(exp_decay)
+```
 
 ![image](https://user-images.githubusercontent.com/80068414/113750074-00e34800-9713-11eb-9a10-afb5f73a58bc.png)
  
