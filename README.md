@@ -32,6 +32,7 @@ lrate = LearningRateScheduler(exp_decay)
   ![loss_1](https://github.com/EugenTrifonov/lab_5/blob/main/graph/epoch_loss_transfer.svg)
  
  ## Fine tuning
+ Разморозка слоёв
  ```python
  def unfreeze_model(model):
       for layer in model.layers:
