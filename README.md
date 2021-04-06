@@ -32,7 +32,12 @@ lrate = LearningRateScheduler(exp_decay)
   ![loss_1](https://github.com/EugenTrifonov/lab_5/blob/main/graph/epoch_loss_transfer.svg)
  
  ## Fine tuning
- 
+ ```python
+ def unfreeze_model(model):
+      for layer in model.layers:
+        if not isinstance(layer, tf.keras.layers.BatchNormalization):
+            layer.trainable = True
+ ```
  ![image](https://user-images.githubusercontent.com/80068414/113753113-6422a980-9716-11eb-9c23-e9b2cb98cfb7.png)
  
  Метрика качества на валидации
@@ -44,4 +49,4 @@ lrate = LearningRateScheduler(exp_decay)
   ![loss_2](https://github.com/EugenTrifonov/lab_5/blob/main/graph/epoch_loss_fine_tuning.svg)
   
   ## Анализ результатов 
-По результатам можно сказать, что наиболее оптимальным вышел случай с темпом обучения на этапе Fine tuning равный 4e-8. При таком значении темпа обучения точность получилась равной 0.8826, что превышает точность при использовании Transfer learning на 0.16%.
+По результатам можно сказать, что наиболее оптимальным вышел случай с темпом обучения при использовании Fine tuning равный 4e-8. При таком значении темпа обучения точность получилась равной 0.8826, что превышает точность при использовании Transfer learning на 0.16%.
